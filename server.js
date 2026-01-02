@@ -1,20 +1,22 @@
-
 const express = require("express");
-const app = express();
 const path = require("path");
 
-app.use(express.json());
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Serve public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// Home route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.post("/submit-project", (req, res) => {
-  console.log("Client Project:", req.body);
-  res.json({ success: true, message: "Project submitted successfully" });
+// Admin route
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
-app.listen(3000, () => {
-  console.log("TIGERARC CONSTRUCTION server running");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
